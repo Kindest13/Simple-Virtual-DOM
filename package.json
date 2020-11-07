@@ -1,0 +1,22 @@
+{
+  "name": "simplevirtualdom",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "parcel src/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kindest13/Simple-Virtual-DOM.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kindest13/Simple-Virtual-DOM/issues"
+  },
+  "homepage": "https://github.com/Kindest13/Simple-Virtual-DOM#readme",
+  "dependencies": {
+    "parcel-bundler": "^1.12.4"
+  }
+}
