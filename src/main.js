@@ -1,6 +1,7 @@
 import createElement from "./vdom/createElement";
 import mount from "./vdom/mount";
 import render from "./vdom/render";
+import diff from './vdom/diff';
 
 const createVApp = count => createElement("div", {
   attr: {
@@ -11,27 +12,28 @@ const createVApp = count => createElement("div", {
     createElement('input'),
     'The current count is: ',  // represents TextNode
     String(count),
-    createElement("div", {
-      children: [
-        createElement(
-          "img", {
-          attrs: {
-            src: "https://media.giphy.com/media/cuPm4p4pClZVC/giphy.gif",
-          },
-        })]   // represents ElementNode
-    })
+    ...Array.from({ length: count }, () => createElement('img', {
+      attrs: {
+        src: 'https://media.giphy.com/media/cuPm4p4pClZVC/giphy.gif',
+      },
+    })),
   ],
 }); // represents ElementNode
 
 
-let count = 0;
-const vApp = createVApp(count);
+let vApp = createVApp(0);
 const $app = render(vApp);
 
 let $rootEl = mount($app, document.getElementById('app'));
 
-// setInterval(() => {
-//   count++;
-//   $rootEl = mount(render(createVApp(count)), $rootEl);
-// }, 1000);
-// console.log($app);
+setInterval(() => {
+  const n = Math.floor(Math.random() * 10);
+  const vNewApp = createVApp(n);
+  const patch = diff(vApp, vNewApp);
+
+  // ми можемо замінити увесь $rootEl,
+  // тому ми хочемо, щоб patch повертав нове значення $rootEl
+  $rootEl = patch($rootEl);
+
+  vApp = vNewApp;
+}, 1000);
